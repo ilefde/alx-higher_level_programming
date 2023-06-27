@@ -1,2 +1,14 @@
 #!/bin/bash
-python3 -m compileall -b $PYFILE i
+
+pyfile=$PYFILE
+
+if [ -z "$pyfile" ]; then
+  echo "Error: PYFILE environment variable not set"
+else
+  python -m py_compile "$pyfile"
+  if [ $? -eq 0 ]; then
+    echo "Compiled $pyfile to ${pyfile}c"
+  else
+    echo "Error compiling $pyfile"
+  fi
+fi
